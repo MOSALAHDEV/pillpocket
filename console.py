@@ -3,7 +3,7 @@
 import cmd
 import sys
 import models
-from models import storage
+from models.__init__ import storage
 from models.base_model import BaseModel
 from models.user import User
 from models.medication import Medication
@@ -19,6 +19,11 @@ class PILLPOCKETCommand(cmd.Cmd):
         "Medication": Medication,
         "Order": Order
     }
+    types = {
+            "string": str,
+            "integer": int,
+            "float": float
+            }
 
     def do_quit(self, arg):
         """Quit command to exit the program."""
@@ -32,18 +37,38 @@ class PILLPOCKETCommand(cmd.Cmd):
         """ Empty line + ENTER shouldn't execute anything."""
         pass
 
-    def do_create(self, arg):
-        """Create a new instance of a class."""
-        if not arg:
+    def do_create(self, args):
+        """ Create an object of any class"""
+        args = args.split()
+        if not args:
             print("** class name missing **")
             return
-        elif arg not in self.classes:
+        elif args[0] not in PILLPOCKETCommand.classes:
             print("** class doesn't exist **")
             return
-        else:
-            new_instance = self.classes[arg]()
-            new_instance.save()
-            print(new_instance.id)
+        new_instance = PILLPOCKETCommand.classes[args[0]]()
+        for parameter in args[1:]:
+            if "=" not in parameter:
+                continue
+            key, value = parameter.split("=", 1)
+            if value.startswith('"') and value.endswith('"'):
+                value = value[1:-1].replace("_", " ").replace('\\"', '"')
+            else:
+                try:
+                    if '.' in value:
+                        value = float(value)
+                    else:
+                        value = int(value)
+                except ValueError:
+                    continue
+            if key in PILLPOCKETCommand.types:
+                try:
+                    value = PILLPOCKETCommand.types[key](value)
+                except ValueError:
+                    continue
+            setattr(new_instance, key, value)
+        new_instance.save()
+        print(new_instance.id)
 
     def do_show(self, arg):
         """Print the string representation of an instance."""
