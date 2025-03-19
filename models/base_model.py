@@ -15,6 +15,7 @@ if getenv('PILLPOCKET_TYPE_STORAGE') == 'db':
 else:
     Base = object
 
+
 class BaseModel:
     """ Base class for all other classes in PillPocket"""
     id = Column(String(60), primary_key=True, nullable=False)
