@@ -5,6 +5,7 @@ from datetime import datetime
 from uuid import uuid4
 import models
 
+
 class BaseModel:
     """ Base class for all other classes in PillPocket"""
     def __init__(self, *args, **kwargs):
