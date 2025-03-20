@@ -18,7 +18,10 @@ else:
 
 class BaseModel:
     """ Base class for all other classes in PillPocket"""
-    id = Column(String(60), primary_key=True, nullable=False)
+    id = Column(String(60),
+            primary_key=True,
+            default=lambda: str(uuid.uuid4()),
+            nullable=False)
     created_at = Column(DateTime, nullable=False, default=datetime.utcnow())
     updated_at = Column(DateTime, nullable=False, default=datetime.utcnow(), onupdate=datetime.utcnow())
 
@@ -32,6 +35,8 @@ class BaseModel:
                     setattr(self, key, datetime.fromisoformat(value))
                 else:
                     setattr(self, key, value)
+            if "id" not in kwargs:
+                self.id = str(uuid4())
         else:
             self.id = str(uuid4())
             self.created_at = datetime.now()

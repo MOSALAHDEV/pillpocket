@@ -13,6 +13,7 @@ class Order(BaseModel, Base):
     medication_id = Column(String(60), ForeignKey("medications.id"), nullable=False)
     quantity = Column(Integer, nullable=False)
     total_price = Column(Float, nullable=False)
+    status = Column(String(50), default="Pending")
 
     # Relationship with User and Medication
     medication = relationship("Medication", back_populates="orders")
@@ -21,9 +22,11 @@ class Order(BaseModel, Base):
     def __init__(self, *args, **kwargs):
         """Initialize a new Order instance."""
         super().__init__(*args, **kwargs)
-        self.user_id = ""
-        self.medication_id = ""
-        self.quantity = 0
-        self.total_price = 0.0
-        self.order_date = ""
-        self.status = ""
+        if "status" not in kwargs:
+            self.status = "Pending"
+       # self.user_id = ""
+       # self.medication_id = ""
+       # self.quantity = 0
+       # self.total_price = 0.0
+       # self.order_date = ""
+       # self.status = ""
