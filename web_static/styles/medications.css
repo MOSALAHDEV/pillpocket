@@ -1,0 +1,121 @@
+/*
+ * medications.css
+ * Styles for the Medications page
+ */
+
+    /* Hero Section */
+.medi-hero {
+    background: linear-gradient(to bottom, #e0e7ff 0%, #f9fafb 100%);
+    text-align: center;
+    padding: 60px 20px;
+    margin-bottom: 30px;
+}
+
+.medi-hero .hero-content {
+    max-width: 700px;
+    margin: 0 auto;
+}
+
+.medi-hero h2 {
+    font-size: 2rem;
+    color: #1e40af;
+    margin-bottom: 15px;
+}
+
+.medi-hero p {
+    font-size: 1.1rem;
+    color: #555;
+}
+
+/* Search Filter */
+.medi-search-filter {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    max-width: 600px;
+    margin: 0 auto 40px;
+}
+
+.medi-search-filter input {
+    flex: 1;
+    padding: 10px;
+    font-size: 1rem;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
+
+.medi-search-filter button {
+    background-color: #2563eb;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+.medi-search-filter button:hover {
+    background-color: #1e40af;
+}
+
+/* Medications Grid */
+.medi-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+    justify-content: center;
+    margin-bottom: 50px;
+}
+
+.medi-card {
+    background-color: #fff;
+    border-radius: 8px;
+    width: 220px;
+    padding: 20px;
+    text-align: center;
+    box-shadow: 0 0 8px rgba(0,0,0,0.1);
+    transition: transform 0.3s ease;
+}
+
+.medi-card:hover {
+    transform: translateY(-5px);
+}
+
+.medi-card h3 {
+    font-size: 1.1rem;
+    color: #1e3a8a;
+    margin-bottom: 10px;
+}
+
+.medi-card p {
+    color: #555;
+    margin-bottom: 15px;
+}
+
+.medi-card button {
+    background-color: #2563eb;
+    color: white;
+    border: none;
+    padding: 8px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    transition: background 0.3s ease;
+}
+
+.medi-card button:hover {
+    background-color: #1e40af;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .medi-grid {
+        flex-direction: column;
+        align-items: center;
+    }
+    .medi-card {
+        width: 80%;
+    }
+}

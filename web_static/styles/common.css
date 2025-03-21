@@ -19,3 +19,59 @@ a {
 ul {
     list-style: none;
 }
+/* Default styles - Mobile First */
+body {
+    font-size: 16px;
+    margin: 0;
+    padding: 0;
+}
+
+/* Responsive Navbar */
+nav ul {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 10px;
+}
+
+nav ul li {
+    margin: 5px 0;
+}
+
+@media (min-width: 768px) {
+    nav ul {
+        flex-direction: row;
+        justify-content: flex-end;
+    }
+
+    nav ul li {
+        margin: 0 15px;
+    }
+}
+
+/* Responsive Grid for Medications & Features */
+.medi-grid, .features {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 20px;
+    padding: 20px;
+    justify-items: center;
+}
+
+@media (min-width: 768px) {
+    .medi-grid, .features {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (min-width: 1024px) {
+    .medi-grid, .features {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+/* Responsive Footer */
+footer {
+    text-align: center;
+    padding: 10px;
+}
