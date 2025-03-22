@@ -14,13 +14,14 @@ def status():
     """
     return jsonify({'status': 'OK'})
 
-@app_views.route('/users', methods=['GET'], strict_slashes=False)
+@app_views.route('/stats', methods=['GET'], strict_slashes=False)
 def stats():
     """
     Returns the stats of the API.
     """
-    return jsonify({
-        'users': storage.count(User),
-        'medications': storage.count(Medication),
-        'orders': storage.count(Order)
-    })
+    stats = {
+        "users": storage.count(User),
+        "medications": storage.count(Medication),
+        "orders": storage.count(Order)
+    }
+    return jsonify(stats)

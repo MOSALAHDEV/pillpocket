@@ -26,8 +26,3 @@ if __name__ == '__main__':
     host = os.getenv('PILLPOCKET_API_HOST', '0.0.0.0')
     port = os.getenv('PILLPOCKET_API_PORT', 5000)
     app.run(host=host, port=port, threaded=True)
-
-
-
-# export PILLPOCKET_API_HOST=0.0.0.0
-# export PILLPOCKET_API_PORT=5001

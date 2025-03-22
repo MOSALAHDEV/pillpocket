@@ -73,3 +73,7 @@ class DBStorage:
     def close(self):
         """Close the current database session"""
         self.__session.remove()
+
+    def count(self, cls=None):
+        """ Count number of objects in storage"""
+        return len(self.all(cls))
