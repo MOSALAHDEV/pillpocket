@@ -6,12 +6,11 @@
   <title>Medications - PillPocket</title>
 
   <!-- Shared Styles -->
-  <link rel="stylesheet" href="../styles/common.css">
-  <link rel="stylesheet" href="../styles/header.css">
-  <link rel="stylesheet" href="../styles/footer.css">
-
+<link rel="stylesheet" href="{{ url_for('static', filename='styles/common.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='styles/header.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='styles/footer.css') }}">
   <!-- Page-Specific Styles -->
-  <link rel="stylesheet" href="../styles/medications.css">
+  <link rel="stylesheet" href="{{ url_for('static', filename='styles/medications.css') }}">
 </head>
 <body>
   <!-- Header -->
