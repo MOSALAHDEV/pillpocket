@@ -24,35 +24,62 @@
             </ul>
         </nav>
     </header>
-
     <main>
-    <!-- Order Hero -->
-    <section class="order-hero">
-        <h2>Your Order</h2>
-        <p>Review your selected medications and proceed to checkout.</p>
-    </section>
-
-    <!-- Order Summary -->
-    <section class="order-summary">
-        <div class="order-item">
-        <span>Ibuprofen (200mg) x 2</span>
-        <span>$10.00</span>
-        </div>
-        <div class="order-item">
-        <span>Amoxicillin x 1</span>
-        <span>$12.50</span>
-        </div>
-        <hr />
-        <div class="order-total">
-        <strong>Total:</strong>
-        <span>$22.50</span>
-        </div>
-        <button>Proceed to Checkout</button>
-    </section>
+        <section class="order-hero">
+            <h2>Available Medications</h2>
+            <p>Select the medications you need and place your order.</p>
+        </section>
+        <section id="medication-list" class="order-summary">
+            <!--- Medication List dynamic-->
+        </section>
     </main>
-
     <footer>
     <p>© 2025 PillPocket. All rights reserved.</p>
     </footer>
+    <script>
+    document.addEventListener("DOMContentLoaded", () => {
+        fetch("http://127.0.0.1:5000/api/v1/medication")
+        .then(res => res.json())
+        .then(meds => {
+            const container = document.getElementById("medication-list");
+            meds.forEach(med => {
+                const medBox = document.createElement("div");
+                medBox.className = "order-item";
+                medBox.innerHTML = `
+                <h3>${med.name}</h3>
+                <p><strong>Dosage:</strong> ${med.dosage}</p>
+                <p><strong>Price:</strong> $${med.price}</p>
+                <p><strong>Stock:</strong> ${med.stock}</p>
+                <input type="number" id="qty-${med.id}" min="1" max="${med.stock}" value="1">
+                <button onclick="placeOrder('${med.id}', ${med.price})">Order</button>
+                <hr/>
+            `;
+                container.appendChild(medBox);
+            });
+        });
+    });
+
+    function placeOrder(medId, price) {
+        const qty = parseInt(document.getElementById(`qty-${medId}`).value);
+        const userId = "822daf6a-3915-4068-9e41-9e34d68a6366";
+        fetch("http://127.0.0.1:5000/api/v1/orders", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+                user_id: userId,
+                medication_id: medId,
+                quantity: qty
+            })
+        })
+        .then(res => res.json())
+        .then(order => {
+            alert(`Order placed!\nTotal: $${order.total_price}\nStatus: ${order.status}`);
+        })
+        .catch(err => {
+            console.error("Order failed", err);
+            alert("An error occurred. Please try again.");
+        });
+    }
+    </script>
 </body>
 </html>
