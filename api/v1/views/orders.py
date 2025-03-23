@@ -26,17 +26,35 @@ def create_order():
     data = request.get_json()
     if not data:
         return jsonify({"error": "Not a JSON"}), 400
-    if "user_id" not in data:
-        return jsonify({"error": "Missing user_id"}), 400
-    if "medication_id" not in data:
-        return jsonify({"error": "Missing medication_id"}), 400
-    if "quantity" not in data:
-        return jsonify({"error": "Missing quantity"}), 400
-    order = Order(**data)
+        
+    for required_key in ["user_id", "medication_id", "quantity"]:
+        if required_key not in data:
+            return jsonify({"error": f"Missing {required_key}"}), 400
+    user = storage.get(User, data["user_id"])
+    if not user:
+        return jsonify({"error": "User not found"}), 404
+    medication = storage.get(Medication, data["medication_id"])
+    if not medication:
+        return jsonify({"error": "Medication not found"}), 404
+    try:
+        quantity = int(data["quantity"])
+        if quantity <= 0:
+            return jsonify({"error": "Quantity must be a positive integer"}), 400
+    except:
+        return jsonify({"error": "Invalid quantity"}), 400
+    total_price = quantity * medication.price
+    order = Order(
+        user_id=user.id,
+        medication_id=medication.id,
+        quantity=quantity,
+        total_price=total_price,
+        status="pending"
+    )
     storage.new(order)
     storage.save()
     return jsonify(order.to_dict()), 201
-
+            
+        
 @app_views.route('/orders/<order_id>', methods=['PUT'], strict_slashes=False)
 def update_order(order_id):
     """Updates a Order object by its ID"""
@@ -46,8 +64,9 @@ def update_order(order_id):
     data = request.get_json()
     if not data:
         return jsonify({"error": "Not a JSON"}), 400
-    for key, value in data.items():
-        if key not in ["id", "user_id", "medication_id", "quantity", "created_at", "updated_at"]:
-            setattr(order, key, value)
-    storage.save()
-    return jsonify(order.to_dict()), 200
+    if "status" in data:
+        order.status = data["status"]
+        storage.save()
+        return jsonify(order.to_dict()), 200
+    else:
+        return jsonify({"error": "Missing status"}), 400
