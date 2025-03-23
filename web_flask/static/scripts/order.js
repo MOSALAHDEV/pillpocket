@@ -1,5 +1,5 @@
 document.addEventListener("DOMContentLoaded", () => {
-    fetch("http://127.0.0.1:5001/api/v1/medication")
+    fetch("http://0.0.0.0:5001/api/v1/medication")
         .then(res => res.json())
         .then(meds => {
             const container = document.getElementById("medication-list");
@@ -23,7 +23,7 @@ document.addEventListener("DOMContentLoaded", () => {
 function placeOrder(medId, price) {
     const qty = parseInt(document.getElementById(`qty-${medId}`).value);
     const userId = "822daf6a-3915-4068-9e41-9e34d68a6366"; // replace with real logic later
-    fetch("http://127.0.0.1:5001/api/v1/orders", {
+    fetch("http://0.0.0.0:5001/api/v1/medication", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
