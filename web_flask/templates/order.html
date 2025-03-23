@@ -36,6 +36,52 @@
     <footer>
     <p>© 2025 PillPocket. All rights reserved.</p>
     </footer>
-    <script src="{{ url_for('static', filename='scripts/order.js') }}"></script>
+    <!-- jQuery CDN -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<!-- Link to your JS script (optional) or inline script -->
+<script>
+  $(document).ready(function () {
+    $.get("http://192.168.223.230:5001/api/v1/medication", function (meds) {
+      const container = $("#medication-list");
+      meds.forEach(function (med) {
+        const medBox = `
+          <div class="order-item">
+            <h3>${med.name}</h3>
+            <p><strong>Dosage:</strong> ${med.dosage}</p>
+            <p><strong>Price:</strong> $${med.price}</p>
+            <p><strong>Stock:</strong> ${med.stock}</p>
+            <input type="number" id="qty-${med.id}" min="1" max="${med.stock}" value="1">
+            <button onclick="placeOrder('${med.id}', ${med.price})">Order</button>
+            <hr/>
+          </div>
+        `;
+        container.append(medBox);
+      });
+    });
+  });
+
+  function placeOrder(medId, price) {
+    const qty = parseInt($(`#qty-${medId}`).val());
+    const userId = "822daf6a-3915-4068-9e41-9e34d68a6366";
+
+    $.ajax({
+      type: "POST",
+      url: "http://192.168.223.230:5001/api/v1/orders",
+      contentType: "application/json",
+      data: JSON.stringify({
+        user_id: userId,
+        medication_id: medId,
+        quantity: qty
+      }),
+      success: function (order) {
+        alert(`Order placed!\nTotal: $${order.total_price}\nStatus: ${order.status}`);
+      },
+      error: function () {
+        alert("Order failed. Please try again.");
+      }
+    });
+  }
+</script>
 </body>
 </html>
