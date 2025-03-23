@@ -62,7 +62,7 @@
     function placeOrder(medId, price) {
         const qty = parseInt(document.getElementById(`qty-${medId}`).value);
         const userId = "822daf6a-3915-4068-9e41-9e34d68a6366";
-        fetch("http://127.0.0.1:5000/api/v1/orders", {
+        fetch(fetch("http://127.0.0.1:5001/api/v1/medication"), {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({
