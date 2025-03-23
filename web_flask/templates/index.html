@@ -17,10 +17,10 @@
         </div>
         <nav>
             <ul>
-                <li><a href="index.html">Home</a></li>
-                <li><a href="pages/medications.html">Medications</a></li>
-                <li><a href="pages/order.html">Order</a></li>
-                <li><a href="pages/about.html">About</a></li>
+                <li><a href="{{ url_for('home_route') }}" class="active">Home</a></li>
+                <li><a href="{{ url_for('medications_route') }}">Medications</a></li>
+                <li><a href="{{ url_for('order_route') }}">Order</a></li>
+                <li><a href="{{ url_for('about_route') }}">About</a></li>
             </ul>
         </nav>
     </header>

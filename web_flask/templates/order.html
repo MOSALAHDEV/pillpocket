@@ -17,10 +17,10 @@
         </div>
         <nav>
             <ul>
-                <li><a href="../index.html">Home</a></li>
-                <li><a href="medications.html">Medications</a></li>
-                <li><a href="order.html" class="active">Order</a></li>
-                <li><a href="about.html">About</a></li>
+                <li><a href="{{ url_for('home_route') }}">Home</a></li>
+                <li><a href="{{ url_for('medications_route') }}">Medications</a></li>
+                <li><a href="{{ url_for('order_route') }}" class="active">Order</a></li>
+                <li><a href="{{ url_for('about_route') }}">About</a></li>
             </ul>
         </nav>
     </header>
@@ -42,7 +42,7 @@
 <!-- Link to your JS script (optional) or inline script -->
 <script>
   $(document).ready(function () {
-    $.get("http://192.168.223.230:5001/api/v1/medication", function (meds) {
+    $.get("http://127.0.0.1:5001/api/v1/medication", function (meds) {
       const container = $("#medication-list");
       meds.forEach(function (med) {
         const medBox = `
@@ -67,7 +67,7 @@
 
     $.ajax({
       type: "POST",
-      url: "http://192.168.223.230:5001/api/v1/orders",
+      url: "http://127.0.0.1:5001/api/v1/medication",
       contentType: "application/json",
       data: JSON.stringify({
         user_id: userId,

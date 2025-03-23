@@ -21,10 +21,10 @@
     </div>
     <nav>
       <ul>
-        <li><a href="../index.html">Home</a></li>
-        <li><a href="medications.html">Medications</a></li>
-        <li><a href="order.html">Order</a></li>
-        <li><a href="about.html" class="active">About</a></li>
+        <li><a href="{{ url_for('home_route') }}">Home</a></li>
+        <li><a href="{{ url_for('medications_route') }}">Medications</a></li>
+        <li><a href="{{ url_for('order_route') }}">Order</a></li>
+        <li><a href="{{ url_for('about_route') }}" class="active">About</a></li>
       </ul>
     </nav>
   </header>
