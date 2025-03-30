@@ -95,17 +95,6 @@ git push origin feature/awesome-feature
 
 ---
 
-## 🖼 Screenshots
-
-Add your screenshots inside a `screenshots/` folder and reference them here:
-
-```markdown
-![Landing Page](screenshots/landing-page.png)
-![API Swagger](screenshots/swagger-docs.png)
-```
-
----
-
 ## 🧭 Project Inspiration
 
 This project was inspired by the need to simplify medical order and prescription management — especially in underserved areas where tech access is limited. **PillPocket** offers a minimal backend that can be integrated into full-stack systems, and it helped us solidify REST design, Flask, and ORM skills.
