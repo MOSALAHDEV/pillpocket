@@ -19,13 +19,13 @@ def get_medication_by_id(medication_id):
         abort(404)
     return jsonify(medication.to_dict())
 
-#@app_views.route('/medication/<medication_id>', methods=['DELETE'], strict_slashes=False)
+@app_views.route('/medication/<medication_id>', methods=['DELETE'], strict_slashes=False)
 def delete_medication(medication_id):
     """Deletes a Medication object by its ID"""
     return jsonify({"error": "Medication deletion is not allowed"}), 403
 
-#@app_views.route('/medication', methods=['POST'], strict_slashes=False)
-#def create_medication():
+@app_views.route('/medication', methods=['POST'], strict_slashes=False)
+def create_medication():
     """Creates a Medication object"""
     data = request.get_json()
     if not data:
@@ -37,8 +37,8 @@ def delete_medication(medication_id):
     storage.save()
     return jsonify(medication.to_dict()), 201
 
-#@app_views.route('/medication/<medication_id>', methods=['PUT'], strict_slashes=False)
-#def update_medication(medication_id):
+@app_views.route('/medication/<medication_id>', methods=['PUT'], strict_slashes=False)
+def update_medication(medication_id):
     """Updates a Medication object by its ID"""
     medication = storage.get(Medication, medication_id)
     if not medication:
